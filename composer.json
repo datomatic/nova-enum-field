@@ -1,0 +1,36 @@
+{
+    "name": "suleymanozev/enum-field",
+    "description": "A Laravel Nova field.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "enum"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1.0",
+        "illuminate/support": "^9.0",
+        "laravel/nova": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Suleymanozev\\EnumField\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": []
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ]
+}
