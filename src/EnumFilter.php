@@ -12,22 +12,23 @@ class EnumFilter extends Filter
 {
     protected string $column;
     protected string $class;
+    protected ?\UnitEnum $default = null;
 
-    public function __construct(string $column, string $class)
+    public function __construct(string $column, string $class, ?\UnitEnum $default = null)
     {
         $this->column = $column;
         $this->class = $class;
+        $this->default = $default;
     }
 
-    public function name($name = null): EnumFilter
+    public function name($name = null): string
     {
         if (!is_null($name)) {
             $this->name = $name;
         }
 
         $this->name = $this->name ?: Nova::humanize(Str::camel($this->column));
-
-        return $this;
+        return $this->name;
     }
 
     /**
@@ -58,4 +59,13 @@ class EnumFilter extends Filter
     {
         return 'enum_filter_' . $this->column;
     }
+
+    public function default()
+    {
+        if (is_null($this->default)) {
+            return parent::default();
+        }
+        return $this->default->value;
+    }
+
 }

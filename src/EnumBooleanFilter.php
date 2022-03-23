@@ -12,22 +12,23 @@ class EnumBooleanFilter extends BooleanFilter
 {
     protected string $column;
     protected string $class;
+    protected array $default;
 
-    public function __construct(string $column, string $class)
+    public function __construct(string $column, string $class, $default = [])
     {
         $this->column = $column;
         $this->class = $class;
+        $this->default = $default;
     }
 
-    public function name($name = null): EnumBooleanFilter
+    public function name($name = null)
     {
         if (!is_null($name)) {
             $this->name = $name;
         }
 
         $this->name = $this->name ?: Nova::humanize(Str::camel($this->column));
-
-        return $this;
+        return $this->name;
     }
 
     public function apply(Request $request, $query, $value): Builder
@@ -46,25 +47,22 @@ class EnumBooleanFilter extends BooleanFilter
         return collect(call_user_func([$this->class, 'cases']))->pluck('value', 'name')->toArray();
     }
 
-    public function default(): EnumBooleanFilter
+    public function key(): string
     {
-        if (isset(func_get_args()[0])) {
-            $this->default = collect(is_array(func_get_args()[0]) ? func_get_args()[0] : [func_get_args()[0]])
+        return 'enum_boolean_filter_' . $this->column;
+    }
+
+    public function default()
+    {
+        if (!empty($this->default)) {
+            $this->default = collect($this->default)
                 ->map(function ($value, $key) {
                     return $value instanceof \UnitEnum ? $value->value : $value;
                 })->all();
-
-            return $this;
         }
 
-        if (is_null($this->default)) {
-            $this->default = parent::default();
-            return $this;
-        }
-
-        $this->default = collect($this->default)->mapWithKeys(function ($option) {
+        return collect($this->default)->mapWithKeys(function ($option) {
                 return [$option => true];
             })->all() + parent::default();
-        return $this;
     }
 }
