@@ -12,7 +12,7 @@ class Enum extends Select
         parent::__construct($name, $attribute, $resolveCallback);
         $this->resolveUsing(
             function ($value) {
-                return $value instanceof \UnitEnum ? $value->name : $value;
+                return $value instanceof \UnitEnum ? $value->value : $value;
             }
         );
 
@@ -33,6 +33,7 @@ class Enum extends Select
     public function attach($class): static
     {
         $this->options(collect($class::cases())->pluck('name', 'value'));
+        $this->rules = [new \Illuminate\Validation\Rules\Enum($class)];
         return $this;
     }
 }
