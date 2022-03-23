@@ -30,8 +30,9 @@ class Enum extends Select
             }
         );
     }
-    public function attach($class)
+    public function attach($class): static
     {
-        return $this->options(collect($class::cases())->pluck('name', 'value'));
+        $this->options(collect($class::cases())->pluck('name', 'value'));
+        return $this;
     }
 }

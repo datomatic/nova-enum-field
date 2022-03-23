@@ -19,13 +19,15 @@ class EnumFilter extends Filter
         $this->class = $class;
     }
 
-    public function name($name = null): string
+    public function name($name = null): EnumFilter
     {
-        if (is_null($name)) {
-            return $this->name ?: Nova::humanize(Str::camel($this->column));
+        if (!is_null($name)) {
+            $this->name = $name;
         }
 
-        return $name;
+        $this->name = $this->name ?: Nova::humanize(Str::camel($this->column));
+
+        return $this;
     }
 
     /**
