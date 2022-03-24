@@ -14,21 +14,12 @@ class EnumBooleanFilter extends BooleanFilter
     protected string $class;
     protected array $default;
 
-    public function __construct(string $column, string $class, $default = [])
+    public function __construct(string $name, string $column, string $class, $default = [])
     {
         $this->column = $column;
         $this->class = $class;
         $this->default = $default;
-    }
-
-    public function name($name = null)
-    {
-        if (!is_null($name)) {
-            $this->name = $name;
-        }
-
-        $this->name = $this->name ?: Nova::humanize(Str::camel($this->column));
-        return $this->name;
+        $this->name = $name;
     }
 
     public function apply(Request $request, $query, $value): Builder

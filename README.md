@@ -68,10 +68,10 @@ class Example extends Resource
     public function filters(Request $request)
     {
         return [
-            EnumFilter::make('user_type', UserType::class),
+            EnumFilter::make(__('User Type'), 'user_type', UserType::class),
                 
              // With optional default value:
-            EnumFilter::make('user_type', UserType::class, [UserType::Administrator]),
+            EnumFilter::make(__('User Type'), 'user_type', UserType::class, UserType::Administrator),
         ];
     }
 }
@@ -93,10 +93,10 @@ class Example extends Resource
     public function filters(Request $request)
     {
         return [
-            EnumBooleanFilter::make('user_type', UserType::class),
+            EnumBooleanFilter::make(__('User Type'), 'user_type', UserType::class),
                 
             // With optional default values:
-            EnumBooleanFilter::make('user_type', UserType::class, [
+            EnumBooleanFilter::make(__('User Type'), 'user_type', UserType::class, [
                 UserType::Administrator,
                 UserType::Moderator,
             ]),
