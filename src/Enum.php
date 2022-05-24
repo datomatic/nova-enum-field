@@ -16,11 +16,6 @@ class Enum extends Select
             }
         );
 
-        $this->displayUsing(
-            function ($value) {
-                return $value instanceof \UnitEnum  ? $value->name : $value;
-            }
-        );
 
         $this->fillUsing(
             function (NovaRequest $request, $model, $attribute, $requestAttribute) {
@@ -33,6 +28,17 @@ class Enum extends Select
     public function attach($class): static
     {
         $this->options(collect($class::cases())->pluck('name', 'value'));
+
+        $this->displayUsing(
+            function ($value) use ($class) {
+                $parsedValue = $class::tryFrom($value);
+                if ($parsedValue instanceof \UnitEnum) {
+                    return $parsedValue->name;
+                }
+                return $value;
+            }
+        );
+
         $this->rules = [new \Illuminate\Validation\Rules\Enum($class)];
         return $this;
     }
