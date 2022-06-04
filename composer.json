@@ -1,6 +1,6 @@
 {
-    "name": "suleymanozev/enum-field",
-    "description": "A Laravel Nova field.",
+    "name": "datomatic/nova-enum-field",
+    "description": "A Laravel Nova PHP 8.1 enum field with filters",
     "keywords": [
         "laravel",
         "nova",
