@@ -3,11 +3,11 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/datomatic/nova-enum-field.svg?style=for-the-badge)](https://packagist.org/packages/datomatic/nova-enum-field)
 # Laravel Nova Enum Field
 
-Nova field for enum in PHP 8.1 and above with also compatibility with [datomatic/nova-enum-field](https://github.com/datomatic/nova-enum-field).
-The package is also compatible with both the pure `Enum` and `BackedEnum`.
-There is also a Nova Select filter and Nova Boolean filter.
+Nova field for enum in PHP 8.1 and above (both pure `Enum` and `BackedEnum`) with [datomatic/nova-enum-field](https://github.com/datomatic/nova-enum-field) compatibility.  
 
 ![Select field on form](branding/select-field.png)
+
+There is also a Nova Select filter and Nova Boolean filter:
 ![Select filter](branding/select-filter.png)
 ![Boolean filter](branding/boolean-filter.png)
 
