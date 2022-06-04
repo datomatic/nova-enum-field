@@ -4,22 +4,16 @@ namespace Suleymanozev\EnumField;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Laravel\Nova\Filters\BooleanFilter;
-use Laravel\Nova\Nova;
+use Suleymanozev\EnumField\Traits\EnumFilterTrait;
+use UnitEnum;
 
 class EnumBooleanFilter extends BooleanFilter
 {
-    protected string $column;
-    protected string $class;
-    protected array $default;
+    use EnumFilterTrait;
 
-    public function __construct(string $name, string $column, string $class, $default = [])
+    public function __construct(public $name, protected string $column, protected string $class, protected array $default = [])
     {
-        $this->column = $column;
-        $this->class = $class;
-        $this->default = $default;
-        $this->name = $name;
     }
 
     public function apply(Request $request, $query, $value): Builder
@@ -33,11 +27,6 @@ class EnumBooleanFilter extends BooleanFilter
         return $query->whereIn($this->column, $enums);
     }
 
-    public function options(Request $request): array
-    {
-        return collect(call_user_func([$this->class, 'cases']))->pluck('value', 'name')->toArray();
-    }
-
     public function key(): string
     {
         return 'enum_boolean_filter_' . $this->column;
@@ -47,8 +36,8 @@ class EnumBooleanFilter extends BooleanFilter
     {
         if (!empty($this->default)) {
             $this->default = collect($this->default)
-                ->map(function ($value, $key) {
-                    return $value instanceof \UnitEnum ? $value->value : $value;
+                ->map(function ($value) {
+                    return $value instanceof UnitEnum ? $value->value : $value;
                 })->all();
         }
 

@@ -7,19 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Nova\Filters\Filter;
 use Laravel\Nova\Nova;
+use Suleymanozev\EnumField\Traits\EnumFilterTrait;
 
 class EnumFilter extends Filter
 {
-    protected string $column;
-    protected string $class;
-    protected ?\UnitEnum $default = null;
+    use EnumFilterTrait;
 
-    public function __construct(string $name, string $column, string $class, ?\UnitEnum $default = null)
+    public function __construct(public $name, protected string $column, protected string $class, protected ?\UnitEnum $default = null)
     {
-        $this->column = $column;
-        $this->class = $class;
-        $this->default = $default;
-        $this->name = $name;
     }
 
     /**
@@ -33,17 +28,6 @@ class EnumFilter extends Filter
     public function apply(Request $request, $query, $value): Builder
     {
         return $query->where($this->column, $value);
-    }
-
-    /**
-     * Get the filter's available options.
-     *
-     * @param Request $request
-     * @return array
-     */
-    public function options(Request $request): array
-    {
-        return collect(call_user_func([$this->class, 'cases']))->pluck('value', 'name')->toArray();
     }
 
     public function key(): string

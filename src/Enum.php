@@ -4,6 +4,7 @@ namespace Suleymanozev\EnumField;
 
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use UnitEnum;
 
 class Enum extends Select
 {
@@ -12,7 +13,7 @@ class Enum extends Select
         parent::__construct($name, $attribute, $resolveCallback);
         $this->resolveUsing(
             function ($value) {
-                return $value instanceof \UnitEnum ? $value->value : $value;
+                return $value instanceof UnitEnum ? $value->value : $value;
             }
         );
 
@@ -25,14 +26,22 @@ class Enum extends Select
             }
         );
     }
+
     public function attach($class): static
     {
-        $this->options(collect($class::cases())->pluck('name', 'value'));
+        if(method_exists($class,'descriptionsArray')){
+            $this->options(collect($class::descriptionsArray()));
+        }else{
+            $this->options(collect($class::cases())->pluck('name', 'value'));
+        }
 
         $this->displayUsing(
             function ($value) use ($class) {
                 $parsedValue = $class::tryFrom($value);
-                if ($parsedValue instanceof \UnitEnum) {
+                if(method_exists($class,'description')){
+                    return $parsedValue->description();
+                }
+                if ($parsedValue instanceof UnitEnum) {
                     return $parsedValue->name;
                 }
                 return $value;
