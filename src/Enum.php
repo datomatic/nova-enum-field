@@ -1,6 +1,6 @@
 <?php
 
-namespace Suleymanozev\EnumField;
+namespace Datomatic\Nova\Fields\Enum;
 
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Suleymanozev\EnumField;
+namespace Datomatic\Nova\Fields\Enum;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Suleymanozev\EnumField\Traits;
+namespace Datomatic\Nova\Fields\Enum\Traits;
 
 use Illuminate\Http\Request;
 

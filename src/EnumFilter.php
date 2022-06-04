@@ -1,13 +1,11 @@
 <?php
 
-namespace Suleymanozev\EnumField;
+namespace Datomatic\Nova\Fields\Enum;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Laravel\Nova\Filters\Filter;
-use Laravel\Nova\Nova;
-use Suleymanozev\EnumField\Traits\EnumFilterTrait;
+use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 
 class EnumFilter extends Filter
 {

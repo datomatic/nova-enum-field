@@ -1,12 +1,14 @@
 # Laravel Nova Enum Field
 
-Nova field for enum in PHP 8.1 and above
+Nova field for enum in PHP 8.1 and above with also compatibility with [datomatic/nova-enum-field](https://github.com/datomatic/nova-enum-field).
+
+
 ## Installation
 
 You can install this package in a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
 
 ```bash
-composer require suleymanozev/enum-field
+composer require datomatic/nova-enum-field
 ```
 
 ## Setup
@@ -31,7 +33,7 @@ You can use the `Enum` field in your Nova resource like this:
 namespace App\Nova;
 
 use App\Enums\UserType;
-use Suleymanozev\EnumField\Enum;
+use Datomatic\Nova\Fields\Enum\Enum;
 
 class Example extends Resource
 {
@@ -42,7 +44,7 @@ class Example extends Resource
         return [
             // ...
 
-            Enum::make('User Type')->attach(UserType::class),
+            Enum::make('User Type','user_type')->attach(UserType::class),
 
             // ...
         ];
@@ -52,14 +54,14 @@ class Example extends Resource
 
 ### Filters
 
-If you would like to use the provided Nova Select filter (which is compatible with both the `Enum` and `FlaggedEnum` fields), you can include it like this:
+If you would like to use the provided Nova Select filter (which is compatible with both the `Enum` and `BackedEnum`), you can include it like this:
 
 ```php
 namespace App\Nova;
 
 use App\Enums\UserPermissions;
 use App\Enums\UserType;
-use Suleymanozev\EnumField\EnumFilter;
+use Datomatic\Nova\Fields\Enum\EnumFilter;
 
 class Example extends Resource
 {
@@ -71,20 +73,20 @@ class Example extends Resource
             EnumFilter::make(__('User Type'), 'user_type', UserType::class),
                 
              // With optional default value:
-            EnumFilter::make(__('User Type'), 'user_type', UserType::class, UserType::Administrator),
+            EnumFilter::make(__('User Type'), 'user_type', UserType::class, UserType::ADMINISTRATOR),
         ];
     }
 }
 ```
 
-Alternatively, you may wish to use the provided Nova Boolean filter (which is also compatible with both the `Enum` and `FlaggedEnum` fields):
+Alternatively, you may wish to use the provided Nova Boolean filter (which is also compatible with both the `Enum` and `BackedEnum`):
 
 ```php
 namespace App\Nova;
 
 use App\Enums\UserPermissions;
 use App\Enums\UserType;
-use Suleymanozev\EnumField\EnumBooleanFilter;
+use Datomatic\Nova\Fields\Enum\EnumBooleanFilter;
 
 class Example extends Resource
 {
@@ -97,8 +99,8 @@ class Example extends Resource
                 
             // With optional default values:
             EnumBooleanFilter::make(__('User Type'), 'user_type', UserType::class, [
-                UserType::Administrator,
-                UserType::Moderator,
+                UserType::ADMINISTRATOR,
+                UserType::MODERATOR,
             ]),
         ];
     }
@@ -106,9 +108,11 @@ class Example extends Resource
 ```
 
 ## Credits
-- [Süleyman ÖZEV](https://github.com/suleymanozev)
+- [Alberto Peripolli](https://github.com/trippo)
+- [All Contributors](../../contributors)
 
 ## Thanks
+- [Süleyman ÖZEV](https://github.com/suleymanozev)
 * [simplesquid/nova-enum-field](https://github.com/simplesquid/nova-enum-field)
 
 ## License

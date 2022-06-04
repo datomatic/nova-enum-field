@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Suleymanozev\\EnumField\\": "src/"
+            "Datomatic\\Nova\\Fields\\Enum\\": "src/"
         }
     },
     "extra": {
