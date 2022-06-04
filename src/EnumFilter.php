@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Datomatic\Nova\Fields\Enum;
 
+use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
-use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 
 class EnumFilter extends Filter
 {
@@ -18,10 +20,7 @@ class EnumFilter extends Filter
     /**
      * Apply the filter to the given query.
      *
-     * @param Request $request
      * @param Builder $query
-     * @param mixed $value
-     * @return Builder
      */
     public function apply(Request $request, $query, $value): Builder
     {
@@ -38,7 +37,7 @@ class EnumFilter extends Filter
         if (is_null($this->default)) {
             return parent::default();
         }
+
         return $this->default->value;
     }
-
 }

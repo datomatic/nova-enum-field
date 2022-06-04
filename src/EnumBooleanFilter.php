@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Datomatic\Nova\Fields\Enum;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -34,7 +36,7 @@ class EnumBooleanFilter extends BooleanFilter
 
     public function default()
     {
-        if (!empty($this->default)) {
+        if (! empty($this->default)) {
             $this->default = collect($this->default)
                 ->map(function ($value) {
                     return $value instanceof UnitEnum ? $value->value : $value;
@@ -42,7 +44,7 @@ class EnumBooleanFilter extends BooleanFilter
         }
 
         return collect($this->default)->mapWithKeys(function ($option) {
-                return [$option => true];
-            })->all() + parent::default();
+            return [$option => true];
+        })->all() + parent::default();
     }
 }
