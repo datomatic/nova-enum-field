@@ -3,7 +3,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/datomatic/nova-enum-field.svg?style=for-the-badge)](https://packagist.org/packages/datomatic/nova-enum-field)
 # Laravel Nova Enum Field
 
-Nova field for enum in PHP 8.1 and above (both pure `Enum` and `BackedEnum`) with [datomatic/nova-enum-field](https://github.com/datomatic/nova-enum-field) compatibility.  
+Nova field for enum in PHP 8.1 and above (both pure `Enum` and `BackedEnum`) with [datomatic/enum-helper](https://github.com/datomatic/enum-helper) compatibility for descriptions and translations.  
 
 ![Select field on form](branding/select-field.png)
 
