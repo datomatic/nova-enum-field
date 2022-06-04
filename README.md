@@ -1,7 +1,15 @@
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/datomatic/nova-enum-field.svg?style=for-the-badge)](https://packagist.org/packages/datomatic/nova-enum-field)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/datomatic/nova-enum-field/Check%20&%20fix%20styling?label=code%20style&color=5FE8B3&style=for-the-badge)](https://github.com/datomatic/nova-enum-field/actions/workflows/php-cs-fixer.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/datomatic/nova-enum-field.svg?style=for-the-badge)](https://packagist.org/packages/datomatic/nova-enum-field)
 # Laravel Nova Enum Field
 
 Nova field for enum in PHP 8.1 and above with also compatibility with [datomatic/nova-enum-field](https://github.com/datomatic/nova-enum-field).
+The package is also compatible with both the pure `Enum` and `BackedEnum`.
+There is also a Nova Select filter and Nova Boolean filter.
 
+![Select field on form](branding/select-field.png)
+![Select filter](branding/select-filter.png)
+![Boolean filter](branding/boolean-filter.png)
 
 ## Installation
 
@@ -54,7 +62,7 @@ class Example extends Resource
 
 ### Filters
 
-If you would like to use the provided Nova Select filter (which is compatible with both the `Enum` and `BackedEnum`), you can include it like this:
+If you would like to use the provided Nova Select filter, you can include it like this:
 
 ```php
 namespace App\Nova;
@@ -79,7 +87,7 @@ class Example extends Resource
 }
 ```
 
-Alternatively, you may wish to use the provided Nova Boolean filter (which is also compatible with both the `Enum` and `BackedEnum`):
+Alternatively, you may wish to use the provided Nova Boolean filter:
 
 ```php
 namespace App\Nova;
