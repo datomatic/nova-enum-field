@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Datomatic\Nova\Fields\Enum;
 
+use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\BooleanFilter;
-use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 use UnitEnum;
 
 class EnumBooleanFilter extends BooleanFilter

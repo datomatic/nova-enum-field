@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Datomatic\Nova\Fields\Enum;
 
+use Datomatic\Nova\Fields\Enum\Traits\EnumPropertiesTrait;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use UnitEnum;
-use Datomatic\Nova\Fields\Enum\Traits\EnumPropertiesTrait;
 
 class Enum extends Select
 {
@@ -34,8 +34,8 @@ class Enum extends Select
     public function attach($class): static
     {
         try {
-            $this->options(collect($class::dynamicAsSelect($this->property,$this->cases)));
-        }catch(\Exception){
+            $this->options(collect($class::dynamicAsSelect($this->property, $this->cases)));
+        } catch (\Exception) {
             $this->options(collect($class::cases())->pluck('name', 'value'));
         }
 
@@ -44,7 +44,7 @@ class Enum extends Select
                 $parsedValue = $class::tryFrom($value);
                 try {
                     return $parsedValue->description();
-                }catch(\Exception) {
+                } catch (\Exception) {
                     if ($parsedValue instanceof UnitEnum) {
                         return $parsedValue->name;
                     }

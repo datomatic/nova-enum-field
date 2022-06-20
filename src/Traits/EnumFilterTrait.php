@@ -13,11 +13,9 @@ trait EnumFilterTrait
     public function options(Request $request): array
     {
         try {
-            return array_flip($this->class::dynamicAsSelect($this->property,$this->cases));
-        }catch(\Exception){
+            return array_flip($this->class::dynamicAsSelect($this->property, $this->cases));
+        } catch (\Exception) {
             return collect(call_user_func([$this->class, 'cases']))->pluck('value', 'name')->toArray();
         }
-
-
     }
 }
