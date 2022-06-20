@@ -7,9 +7,12 @@ namespace Datomatic\Nova\Fields\Enum;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use UnitEnum;
+use Datomatic\Nova\Fields\Enum\Traits\EnumPropertiesTrait;
 
 class Enum extends Select
 {
+    use EnumPropertiesTrait;
+
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
@@ -30,23 +33,24 @@ class Enum extends Select
 
     public function attach($class): static
     {
-        if (method_exists($class, 'descriptionsArray')) {
-            $this->options(collect($class::descriptionsArray()));
-        } else {
+        try {
+            $this->options(collect($class::dynamicAsSelect($this->property,$this->cases)));
+        }catch(\Exception){
             $this->options(collect($class::cases())->pluck('name', 'value'));
         }
 
         $this->displayUsing(
             function ($value) use ($class) {
                 $parsedValue = $class::tryFrom($value);
-                if (method_exists($class, 'description')) {
+                try {
                     return $parsedValue->description();
-                }
-                if ($parsedValue instanceof UnitEnum) {
-                    return $parsedValue->name;
-                }
+                }catch(\Exception) {
+                    if ($parsedValue instanceof UnitEnum) {
+                        return $parsedValue->name;
+                    }
 
-                return $value;
+                    return $value;
+                }
             }
         );
 

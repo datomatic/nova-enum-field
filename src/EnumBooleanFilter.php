@@ -7,7 +7,7 @@ namespace Datomatic\Nova\Fields\Enum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\BooleanFilter;
-use Suleymanozev\EnumField\Traits\EnumFilterTrait;
+use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 use UnitEnum;
 
 class EnumBooleanFilter extends BooleanFilter

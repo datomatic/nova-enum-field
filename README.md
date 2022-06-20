@@ -3,7 +3,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/datomatic/nova-enum-field.svg?style=for-the-badge)](https://packagist.org/packages/datomatic/nova-enum-field)
 # Laravel Nova Enum Field
 
-Nova field for enum in PHP 8.1 and above (both pure `Enum` and `BackedEnum`) with [datomatic/nova-enum-field](https://github.com/datomatic/nova-enum-field) compatibility.  
+Nova field for enum in PHP 8.1 and above (both pure `Enum` and `BackedEnum`) with [datomatic/enum-helper](https://github.com/datomatic/enum-helper) and [datomatic/laravel-enum-helper](https://github.com/datomatic/laravel-enum-helper) compatibility.  
 
 ![Select field on form](branding/select-field.png)
 
@@ -60,6 +60,15 @@ class Example extends Resource
 }
 ```
 
+If you use [datomatic/laravel-enum-helper](https://github.com/datomatic/laravel-enum-helper) you can set optionally a custom dynamic property or/and a subset of cases.  
+The default property is `description`.
+```php
+Enum::make('User Type','user_type')
+    ->property('excerpt')
+    ->cases([UserType::ADMINISTRATOR,UserType::MODERATOR])
+    ->attach(UserType::class),
+```
+
 ### Filters
 
 If you would like to use the provided Nova Select filter, you can include it like this:
@@ -113,6 +122,19 @@ class Example extends Resource
         ];
     }
 }
+```
+
+If you use [datomatic/laravel-enum-helper](https://github.com/datomatic/laravel-enum-helper) you can set optionally a custom dynamic property or/and a subset of cases.  
+The default property is `description`.
+```php
+// Enum filter
+EnumFilter::make('User Type', 'user_type', UserType::class)
+    ->property('excerpt')
+    ->cases([UserType::ADMINISTRATOR,UserType::MODERATOR])
+// Boolean Enum filter
+EnumBooleanFilter::make('User Type', 'user_type', UserType::class)
+    ->property('excerpt')
+    ->cases([UserType::ADMINISTRATOR,UserType::MODERATOR])
 ```
 
 ## Credits

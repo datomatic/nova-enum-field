@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 
 trait EnumFilterTrait
 {
+    use EnumPropertiesTrait;
+
     public function options(Request $request): array
     {
-        if (method_exists($this->class, 'descriptionsArray')) {
-            return array_flip($this->class::descriptionsArray());
+        try {
+            return array_flip($this->class::dynamicAsSelect($this->property,$this->cases));
+        }catch(\Exception){
+            return collect(call_user_func([$this->class, 'cases']))->pluck('value', 'name')->toArray();
         }
 
-        return collect(call_user_func([$this->class, 'cases']))->pluck('value', 'name')->toArray();
+
     }
 }
