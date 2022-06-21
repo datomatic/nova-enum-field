@@ -2,6 +2,10 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.2.1 - 2022-06-21
+
+- fixed errors with base pure enum
+
 ## v1.2.0 - 2022-06-20
 
 - added compatibility with datomatic/laravel-enum-helper
