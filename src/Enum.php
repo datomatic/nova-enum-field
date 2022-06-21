@@ -33,10 +33,10 @@ class Enum extends Select
 
     public function attach($class): static
     {
-        if(method_exists($class,'dynamicAsSelect')){
-            try{
+        if (method_exists($class, 'dynamicAsSelect')) {
+            try {
                 $this->options(collect($class::dynamicAsSelect($this->property, $this->cases)));
-            }catch(\Exception){
+            } catch (\Exception) {
                 $this->options(collect($class::cases())->pluck('name', 'value'));
             }
         } else {
@@ -47,13 +47,13 @@ class Enum extends Select
             function ($value) use ($class) {
                 if ($value instanceof UnitEnum) {
                     $parsedValue = $value;
-                }else{
+                } else {
                     $parsedValue = $class::tryFrom($value);
                 }
 
-                if(method_exists($class,$this->property)) {
+                if (method_exists($class, $this->property)) {
                     return $parsedValue->{$this->property}();
-                }elseif ($parsedValue instanceof UnitEnum) {
+                } elseif ($parsedValue instanceof UnitEnum) {
                     return $parsedValue->name;
                 }
 
