@@ -87,10 +87,12 @@ class Example extends Resource
     public function filters(Request $request)
     {
         return [
-            EnumFilter::make(__('User Type'), 'user_type', UserType::class),
+            EnumFilter::make('user_type', UserType::class),
                 
-             // With optional default value:
-            EnumFilter::make(__('User Type'), 'user_type', UserType::class, UserType::ADMINISTRATOR),
+             // With optional name and default value:
+            EnumFilter::make('user_type', UserType::class)
+                ->name(__('User Type'))
+                ->default(UserType::ADMINISTRATOR)
         ];
     }
 }
@@ -112,13 +114,12 @@ class Example extends Resource
     public function filters(Request $request)
     {
         return [
-            EnumBooleanFilter::make(__('User Type'), 'user_type', UserType::class),
+            EnumBooleanFilter::make('user_type', UserType::class),
                 
-            // With optional default values:
-            EnumBooleanFilter::make(__('User Type'), 'user_type', UserType::class, [
-                UserType::ADMINISTRATOR,
-                UserType::MODERATOR,
-            ]),
+            // With optional name and default value:
+            EnumBooleanFilter::make('user_type', UserType::class)
+                ->name(__('User Type'))
+                ->default([UserType::ADMINISTRATOR, UserType::MODERATOR])
         ];
     }
 }
@@ -128,11 +129,13 @@ If you use [datomatic/laravel-enum-helper](https://github.com/datomatic/laravel-
 The default property is `description`.
 ```php
 // Enum filter
-EnumFilter::make('User Type', 'user_type', UserType::class)
+EnumFilter::make('user_type', UserType::class)
+    ->name('User Type')
     ->property('excerpt')
     ->cases([UserType::ADMINISTRATOR,UserType::MODERATOR])
 // Boolean Enum filter
-EnumBooleanFilter::make('User Type', 'user_type', UserType::class)
+EnumBooleanFilter::make('user_type', UserType::class)
+    ->name('User Type')
     ->property('excerpt')
     ->cases([UserType::ADMINISTRATOR,UserType::MODERATOR])
 ```
@@ -143,8 +146,8 @@ EnumBooleanFilter::make('User Type', 'user_type', UserType::class)
 
 ## Thanks
 - [Süleyman ÖZEV](https://github.com/suleymanozev)
-* [simplesquid/nova-enum-field](https://github.com/simplesquid/nova-enum-field)
+- [simplesquid/nova-enum-field](https://github.com/simplesquid/nova-enum-field)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.txt) for more information.

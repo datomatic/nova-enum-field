@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Datomatic\Nova\Fields\Enum;
 
+use BackedEnum;
 use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -13,7 +14,9 @@ class EnumFilter extends Filter
 {
     use EnumFilterTrait;
 
-    public function __construct(public $name, protected string $column, protected string $class, protected ?\UnitEnum $default = null)
+    protected ?\UnitEnum $default = null;
+
+    public function __construct(protected string $column, protected string $class)
     {
     }
 
@@ -34,10 +37,16 @@ class EnumFilter extends Filter
 
     public function default()
     {
+        if (isset(func_get_args()[0])) {
+            $this->default = is_subclass_of(func_get_args()[0], \UnitEnum::class) ? func_get_args()[0] : null;
+
+            return $this;
+        }
+
         if (is_null($this->default)) {
             return parent::default();
         }
 
-        return $this->default->value;
+        return $this->default instanceof BackedEnum ? $this->default->value : $this->default->name;
     }
 }

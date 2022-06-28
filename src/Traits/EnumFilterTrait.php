@@ -5,10 +5,22 @@ declare(strict_types=1);
 namespace Datomatic\Nova\Fields\Enum\Traits;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Nova;
 
 trait EnumFilterTrait
 {
     use EnumPropertiesTrait;
+
+    public function name($name = null)
+    {
+        if (is_null($name)) {
+            return $this->name ?: Nova::humanize($this->column);
+        }
+
+        $this->name = $name;
+
+        return $this;
+    }
 
     public function options(Request $request): array
     {

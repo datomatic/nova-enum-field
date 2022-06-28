@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Datomatic\Nova\Fields\Enum;
 
+use BackedEnum;
 use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Laravel\Nova\Filters\BooleanFilter;
 use UnitEnum;
 
@@ -14,7 +16,10 @@ class EnumBooleanFilter extends BooleanFilter
 {
     use EnumFilterTrait;
 
-    public function __construct(public $name, protected string $column, protected string $class, protected array $default = [])
+    /** @var array<\UnitEnum>  */
+    protected array $default = [];
+
+    public function __construct(protected string $column, protected string $class)
     {
     }
 
@@ -36,15 +41,14 @@ class EnumBooleanFilter extends BooleanFilter
 
     public function default()
     {
-        if (! empty($this->default)) {
-            $this->default = collect($this->default)
-                ->map(function ($value) {
-                    return $value instanceof UnitEnum ? $value->value : $value;
-                })->all();
+        if (isset(func_get_args()[0])) {
+            $this->default = Arr::wrap(func_get_args()[0]);
+
+            return $this;
         }
 
-        return collect($this->default)->mapWithKeys(function ($option) {
-            return [$option => true];
-        })->all() + parent::default();
+        return collect($this->default)->mapWithKeys(function ($enum) {
+                return [($enum instanceof BackedEnum ? $enum->value : $enum->name) => true];
+            })->all() + parent::default();
     }
 }
