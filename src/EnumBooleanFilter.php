@@ -16,7 +16,7 @@ class EnumBooleanFilter extends BooleanFilter
 {
     use EnumFilterTrait;
 
-    /** @var array<\UnitEnum>  */
+    /** @var array<UnitEnum>  */
     protected array $default = [];
 
     public function __construct(protected string $column, protected string $class)
@@ -39,16 +39,16 @@ class EnumBooleanFilter extends BooleanFilter
         return 'enum_boolean_filter_' . $this->column;
     }
 
-    public function default()
+    public function default(null|array|UnitEnum $default = null): self|array|null
     {
-        if (isset(func_get_args()[0])) {
-            $this->default = Arr::wrap(func_get_args()[0]);
-
-            return $this;
+        if (is_null($default)) {
+            return collect(Arr::wrap($this->default))->mapWithKeys(function ($enum) {
+                    return [($enum instanceof BackedEnum ? $enum->value : $enum->name) => true];
+                })->all() + parent::default();
         }
 
-        return collect($this->default)->mapWithKeys(function ($enum) {
-                return [($enum instanceof BackedEnum ? $enum->value : $enum->name) => true];
-            })->all() + parent::default();
+        $this->default = Arr::wrap($default);
+
+        return $this;
     }
 }

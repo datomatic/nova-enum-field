@@ -9,6 +9,7 @@ use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
+use UnitEnum;
 
 class EnumFilter extends Filter
 {
@@ -35,18 +36,15 @@ class EnumFilter extends Filter
         return 'enum_filter_' . $this->column;
     }
 
-    public function default()
+    public function default(?UnitEnum $default = null): null|self|UnitEnum|string
     {
-        if (isset(func_get_args()[0])) {
-            $this->default = is_subclass_of(func_get_args()[0], \UnitEnum::class) ? func_get_args()[0] : null;
-
-            return $this;
+        if (is_null($default)) {
+            return $this->default ?: parent::default();
         }
 
-        if (is_null($this->default)) {
-            return parent::default();
-        }
+        $this->default = $default;
 
-        return $this->default instanceof BackedEnum ? $this->default->value : $this->default->name;
+        return $this;
+
     }
 }
