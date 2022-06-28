@@ -10,13 +10,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Laravel\Nova\Filters\BooleanFilter;
-use UnitEnum;
 
 class EnumBooleanFilter extends BooleanFilter
 {
     use EnumFilterTrait;
 
-    /** @var array<\UnitEnum>  */
+    /** @var array<\UnitEnum> */
     protected array $default = [];
 
     public function __construct(protected string $column, protected string $class)
@@ -48,7 +47,7 @@ class EnumBooleanFilter extends BooleanFilter
         }
 
         return collect($this->default)->mapWithKeys(function ($enum) {
-                return [($enum instanceof BackedEnum ? $enum->value : $enum->name) => true];
-            })->all() + parent::default();
+            return [($enum instanceof BackedEnum ? $enum->value : $enum->name) => true];
+        })->all() + parent::default();
     }
 }
