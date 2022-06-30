@@ -2,6 +2,10 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.3.2 - 2022-06-30
+
+- fix for dynamic methods
+
 ## v1.3.1a - 2022-06-28
 
 - refactor default filter method
@@ -16,6 +20,7 @@ EnumBooleanFilter::make('Stato', 'status', CourseStatus::class, CourseStatus::DE
 
 // to
 EnumBooleanFilter::make('status', CourseStatus::class)->name('Stato')->default(CourseStatus::DEFAULT)
+
 
 
 ```
