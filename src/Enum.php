@@ -45,15 +45,21 @@ class Enum extends Select
 
         $this->displayUsing(
             function ($value) use ($class) {
+                if(is_null($value)){
+                    return null;
+                }
                 if ($value instanceof UnitEnum) {
                     $parsedValue = $value;
                 } else {
                     $parsedValue = $class::tryFrom($value);
                 }
 
-                if (method_exists($class, $this->property)) {
+                if (method_exists($class, $this->property)
+                    || in_array('Datomatic\LaravelEnumHelper\LaravelEnumHelper', class_uses($class))) {
                     return $parsedValue->{$this->property}();
-                } elseif ($parsedValue instanceof UnitEnum) {
+                }
+
+                if ($parsedValue instanceof UnitEnum) {
                     return $parsedValue->name;
                 }
 

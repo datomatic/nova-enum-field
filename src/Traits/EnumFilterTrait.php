@@ -27,6 +27,8 @@ trait EnumFilterTrait
         if (method_exists($this->class, 'dynamicAsSelect')) {
             try {
                 return array_flip($this->class::dynamicAsSelect($this->property, $this->cases));
+            } catch (\Datomatic\LaravelEnumHelper\Exceptions\TranslationMissing $e) {
+                throw $e;
             } catch (\Exception) {
             }
         }
