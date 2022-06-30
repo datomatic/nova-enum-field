@@ -45,7 +45,7 @@ class Enum extends Select
 
         $this->displayUsing(
             function ($value) use ($class) {
-                if(is_null($value)){
+                if (is_null($value)) {
                     return null;
                 }
                 if ($value instanceof UnitEnum) {
