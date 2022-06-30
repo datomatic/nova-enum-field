@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Datomatic\Nova\Fields\Enum;
 
-use BackedEnum;
 use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -45,6 +44,5 @@ class EnumFilter extends Filter
         $this->default = $default;
 
         return $this;
-
     }
 }
