@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Datomatic\Nova\Fields\Enum;
 
+use BackedEnum;
+use Datomatic\LaravelEnumHelper\Exceptions\TranslationMissing;
 use Datomatic\Nova\Fields\Enum\Traits\EnumPropertiesTrait;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -33,14 +35,18 @@ class Enum extends Select
 
     public function attach($class): static
     {
-        if (method_exists($class, 'dynamicAsSelect')) {
+        $key = (is_subclass_of($class, BackedEnum::class)) ? 'value' : 'name';
+
+        if (method_exists($class, 'dynamicByKey')) {
             try {
-                $this->options(collect($class::dynamicAsSelect($this->property, $this->cases)));
-            } catch (\Exception) {
-                $this->options(collect($class::cases())->pluck('name', 'value'));
+                $this->options(collect($class::dynamicByKey('value', $this->property, $this->cases)));
+            } catch (TranslationMissing $e) {
+                throw $e;
+            }catch (\Exception) {
+                $this->options(collect($class::cases())->pluck('name', $key));
             }
         } else {
-            $this->options(collect($class::cases())->pluck('name', 'value'));
+            $this->options(collect($class::cases())->pluck('name', $key));
         }
 
         $this->displayUsing(
