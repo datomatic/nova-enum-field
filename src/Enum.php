@@ -42,7 +42,7 @@ class Enum extends Select
                 $this->options(collect($class::dynamicByKey('value', $this->property, $this->cases)));
             } catch (TranslationMissing $e) {
                 throw $e;
-            }catch (\Exception) {
+            } catch (\Exception) {
                 $this->options(collect($class::cases())->pluck('name', $key));
             }
         } else {
