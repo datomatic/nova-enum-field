@@ -2,6 +2,10 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.4.0 - 2022-07-02
+
+- updating for datomatic/enum-helper compatibility
+
 ## v1.3.2 - 2022-06-30
 
 - fix for dynamic methods
@@ -20,6 +24,7 @@ EnumBooleanFilter::make('Stato', 'status', CourseStatus::class, CourseStatus::DE
 
 // to
 EnumBooleanFilter::make('status', CourseStatus::class)->name('Stato')->default(CourseStatus::DEFAULT)
+
 
 
 
