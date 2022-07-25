@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Datomatic\Nova\Fields\Enum;
 
 use BackedEnum;
-use Datomatic\LaravelEnumHelper\Exceptions\TranslationMissing;
 use Datomatic\Nova\Fields\Enum\Traits\EnumPropertiesTrait;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -26,7 +25,7 @@ class Enum extends Select
 
         $this->fillUsing(
             function (NovaRequest $request, $model, $attribute, $requestAttribute) {
-                if ($request->exists($requestAttribute)) {
+                if ($request->aexists($requestAttribute)) {
                     $model->{$attribute} = $request[$requestAttribute];
                 }
             }
@@ -38,13 +37,7 @@ class Enum extends Select
         $key = (is_subclass_of($class, BackedEnum::class)) ? 'value' : 'name';
 
         if (method_exists($class, 'dynamicByKey')) {
-            try {
-                $this->options(collect($class::dynamicByKey('value', $this->property, $this->cases)));
-            } catch (TranslationMissing $e) {
-                throw $e;
-            }catch (\Exception) {
-                $this->options(collect($class::cases())->pluck('name', $key));
-            }
+            $this->options(collect($class::dynamicByKey('value', $this->property, $this->cases)));
         } else {
             $this->options(collect($class::cases())->pluck('name', $key));
         }
@@ -57,9 +50,12 @@ class Enum extends Select
                 if ($value instanceof UnitEnum) {
                     $parsedValue = $value;
                 } else {
+                    if (is_numeric($value)) {
+                        $value = intval($value);
+                    }
+
                     $parsedValue = $class::tryFrom($value);
                 }
-
                 if (method_exists($class, $this->property)
                     || in_array('Datomatic\LaravelEnumHelper\LaravelEnumHelper', class_uses($class))) {
                     return $parsedValue->{$this->property}();
@@ -73,7 +69,11 @@ class Enum extends Select
             }
         );
 
-        $this->rules = [new \Illuminate\Validation\Rules\Enum($class)];
+        $this->rules[] = new \Illuminate\Validation\Rules\Enum($class);
+
+        if ($this->nullable) {
+            $this->rules[] = 'nullable';
+        }
 
         return $this;
     }

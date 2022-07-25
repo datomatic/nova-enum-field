@@ -64,6 +64,7 @@ If you use [datomatic/laravel-enum-helper](https://github.com/datomatic/laravel-
 The default property is `description`.
 ```php
 Enum::make('User Type','user_type')
+    ->nullable()
     ->property('excerpt')
     ->cases([UserType::ADMINISTRATOR,UserType::MODERATOR])
     ->attach(UserType::class),
