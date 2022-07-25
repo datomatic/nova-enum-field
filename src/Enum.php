@@ -25,7 +25,7 @@ class Enum extends Select
 
         $this->fillUsing(
             function (NovaRequest $request, $model, $attribute, $requestAttribute) {
-                if ($request->aexists($requestAttribute)) {
+                if ($request->exists($requestAttribute)) {
                     $model->{$attribute} = $request[$requestAttribute];
                 }
             }
