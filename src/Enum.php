@@ -34,6 +34,10 @@ class Enum extends Select
 
     public function attach($class): static
     {
+        if (is_callable($class)) {
+            $class = $class();
+        }
+
         $key = (is_subclass_of($class, BackedEnum::class)) ? 'value' : 'name';
 
         if (method_exists($class, 'dynamicByKey')) {
