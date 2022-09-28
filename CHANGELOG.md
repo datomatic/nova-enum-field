@@ -2,6 +2,11 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.6.0 - 2022-09-28
+
+- Allow closure in the `attach` method.
+- Fixed correct use of property parameter on resource edit select
+
 ## v1.5 - 2022-07-25
 
 - nullable field support
@@ -29,6 +34,7 @@ EnumBooleanFilter::make('Stato', 'status', CourseStatus::class, CourseStatus::DE
 
 // to
 EnumBooleanFilter::make('status', CourseStatus::class)->name('Stato')->default(CourseStatus::DEFAULT)
+
 
 
 
