@@ -34,10 +34,21 @@ class Enum extends Select
 
     public function attach($class): static
     {
+        if (is_callable($class)) {
+            $class = $class();
+        }
+
         $key = (is_subclass_of($class, BackedEnum::class)) ? 'value' : 'name';
 
         if (method_exists($class, 'dynamicByKey')) {
             $this->options(collect($class::dynamicByKey('value', $this->property, $this->cases)));
+        } elseif (method_exists($class, $this->property)) {
+            $this->options(collect($class::cases())
+                ->mapWithKeys(fn ($case) => [
+                    $case->{$key} => ['value' => $case->{$key}, 'label' => $case->{$this->property}()],
+                ])
+                ->values()
+                ->all());
         } else {
             $this->options(collect($class::cases())->pluck('name', $key));
         }
