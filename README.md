@@ -1,5 +1,5 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/datomatic/nova-enum-field.svg?style=for-the-badge)](https://packagist.org/packages/datomatic/nova-enum-field)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/datomatic/nova-enum-field/Check%20&%20fix%20styling?label=code%20style&color=5FE8B3&style=for-the-badge)](https://github.com/datomatic/nova-enum-field/actions/workflows/php-cs-fixer.yml)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/datomatic/nova-enum-field/php-cs-fixer.yml?label=code%20style&color=5FE8B3&style=for-the-badge)](https://github.com/datomatic/nova-enum-field/actions/workflows/php-cs-fixer.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/datomatic/nova-enum-field.svg?style=for-the-badge)](https://packagist.org/packages/datomatic/nova-enum-field)
 # Laravel Nova Enum Field
 
