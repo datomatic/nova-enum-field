@@ -60,7 +60,7 @@ class Example extends Resource
 }
 ```
 
-Generally, `attach()` should be the last method you call on the field as it may rely on properties set by earlier calls. For example you will get validation failures if `nullable()` is called after `attach()`.
+Be aware that order in which methods on the field are called can be sigificant. For example `nullable()` must be called before *before* `attach()`, and `options()` must be called *after* `attach()`.
 
 If you use [datomatic/laravel-enum-helper](https://github.com/datomatic/laravel-enum-helper) you can set optionally a custom dynamic property or/and a subset of cases.  
 The default property is `description`.
