@@ -26,6 +26,8 @@ trait EnumFilterTrait
 
     public function options(Request $request): array
     {
+        $key = (is_subclass_of($this->class, BackedEnum::class)) ? 'value' : 'name';
+
         if (method_exists($this->class, 'dynamicByKey')) {
             try {
                 return array_flip($this->class::dynamicByKey('value', $this->property, $this->cases));
@@ -33,9 +35,13 @@ trait EnumFilterTrait
                 throw $e;
             } catch (\Exception) {
             }
+        } elseif (method_exists($this->class, $this->property)) {
+            return collect(call_user_func([$this->class, 'cases']))
+                ->mapWithKeys(fn($case) => [
+                    $case->{$this->property}() => $case->{$key},
+                ])
+                ->toArray();
         }
-
-        $key = (is_subclass_of($this->class, BackedEnum::class)) ? 'value' : 'name';
 
         return collect(call_user_func([$this->class, 'cases']))->pluck($key, 'name')->toArray();
     }
