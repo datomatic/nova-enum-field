@@ -37,7 +37,7 @@ trait EnumFilterTrait
             }
         } elseif (method_exists($this->class, $this->property)) {
             return collect(call_user_func([$this->class, 'cases']))
-                ->mapWithKeys(fn($case) => [
+                ->mapWithKeys(fn ($case) => [
                     $case->{$this->property}() => $case->{$key},
                 ])
                 ->toArray();
