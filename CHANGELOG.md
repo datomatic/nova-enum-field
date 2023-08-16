@@ -2,6 +2,10 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.7.0 - 2023-08-16
+
+- Display the value returned by the method defined in "property" by @AndreSchwarzer
+
 ## v1.6.1 - 2023-02-15
 
 Laravel 10 support
@@ -38,6 +42,7 @@ EnumBooleanFilter::make('Stato', 'status', CourseStatus::class, CourseStatus::DE
 
 // to
 EnumBooleanFilter::make('status', CourseStatus::class)->name('Stato')->default(CourseStatus::DEFAULT)
+
 
 
 
