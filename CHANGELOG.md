@@ -2,6 +2,10 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.8.0 - 2023-10-07
+
+- fix error with `StringBackedEnum` with numeric string
+
 ## v1.7.0 - 2023-08-16
 
 - Display the value returned by the method defined in "property" by @AndreSchwarzer
@@ -42,6 +46,7 @@ EnumBooleanFilter::make('Stato', 'status', CourseStatus::class, CourseStatus::DE
 
 // to
 EnumBooleanFilter::make('status', CourseStatus::class)->name('Stato')->default(CourseStatus::DEFAULT)
+
 
 
 
