@@ -61,11 +61,13 @@ class Enum extends Select
                 if ($value instanceof UnitEnum) {
                     $parsedValue = $value;
                 } else {
-                    if (is_numeric($value)) {
-                        $value = intval($value);
-                    }
+                    $rEnum = new \ReflectionEnum($class);
 
-                    $parsedValue = $class::tryFrom($value);
+                    if ($rEnum->getBackingType()?->getName() === 'string') {
+                        $parsedValue = $class::tryFrom((string)$value);
+                    } else {
+                        $parsedValue = $class::tryFrom((int)$value);
+                    }
                 }
                 if (method_exists($class, $this->property)
                     || in_array('Datomatic\LaravelEnumHelper\LaravelEnumHelper', class_uses($class))) {
