@@ -64,9 +64,9 @@ class Enum extends Select
                     $rEnum = new \ReflectionEnum($class);
 
                     if ($rEnum->getBackingType()?->getName() === 'string') {
-                        $parsedValue = $class::tryFrom((string)$value);
+                        $parsedValue = $class::tryFrom((string) $value);
                     } else {
-                        $parsedValue = $class::tryFrom((int)$value);
+                        $parsedValue = $class::tryFrom((int) $value);
                     }
                 }
                 if (method_exists($class, $this->property)
