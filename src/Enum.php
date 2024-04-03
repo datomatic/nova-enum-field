@@ -19,9 +19,10 @@ class Enum extends Select
         parent::__construct($name, $attribute, $resolveCallback);
         $this->resolveUsing(
             function ($value) {
-                if($value instanceof BackedEnum){
+                if ($value instanceof BackedEnum) {
                     return $value->value;
                 }
+
                 return $value instanceof UnitEnum ? $value->name : $value;
             }
         );
