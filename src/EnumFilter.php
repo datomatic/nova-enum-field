@@ -14,7 +14,7 @@ class EnumFilter extends Filter
 {
     use EnumFilterTrait;
 
-    protected ?\UnitEnum $default = null;
+    protected ?UnitEnum $default = null;
 
     public function __construct(protected string $column, protected string $class)
     {
