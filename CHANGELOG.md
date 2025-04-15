@@ -2,6 +2,11 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.10.0 - 2025-04-15
+
+- Laravel 12
+- Nova 5
+
 ## v1.9.0 - 2024-04-03
 
 - Fixed a bug with Pure Enum (thanks to @korobkovandrey)
@@ -51,6 +56,7 @@ EnumBooleanFilter::make('Stato', 'status', CourseStatus::class, CourseStatus::DE
 
 // to
 EnumBooleanFilter::make('status', CourseStatus::class)->name('Stato')->default(CourseStatus::DEFAULT)
+
 
 
 
