@@ -2,6 +2,10 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.11.1 - 2026-10-06
+
+fix exception #8 when applying EnumFilter or EnumBooleanFilter to a resource index rendered through a relation by @RobertoNegro
+
 ## v1.11.0 - 2026-03-24
 
 - Laravel 13
@@ -60,6 +64,7 @@ EnumBooleanFilter::make('Stato', 'status', CourseStatus::class, CourseStatus::DE
 
 // to
 EnumBooleanFilter::make('status', CourseStatus::class)->name('Stato')->default(CourseStatus::DEFAULT)
+
 
 
 
