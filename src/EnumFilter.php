@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Datomatic\Nova\Fields\Enum;
 
 use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
 use UnitEnum;
