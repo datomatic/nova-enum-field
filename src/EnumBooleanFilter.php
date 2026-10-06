@@ -6,7 +6,7 @@ namespace Datomatic\Nova\Fields\Enum;
 
 use BackedEnum;
 use Datomatic\Nova\Fields\Enum\Traits\EnumFilterTrait;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Laravel\Nova\Filters\BooleanFilter;
