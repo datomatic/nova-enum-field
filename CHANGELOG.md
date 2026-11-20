@@ -2,6 +2,12 @@
 
 All notable changes to `nova-enum-field` will be documented in this file.
 
+## v1.12.0 - 2026-11-20
+
+Adds PHP 8.6 compatibility: fixes the implicitly nullable parameter deprecation (PHP 8.4+).
+
+**Full Changelog**: https://github.com/datomatic/nova-enum-field/compare/v1.11.1...v1.12.0
+
 ## v1.11.1 - 2026-10-06
 
 fix exception #8 when applying EnumFilter or EnumBooleanFilter to a resource index rendered through a relation by @RobertoNegro
@@ -64,6 +70,7 @@ EnumBooleanFilter::make('Stato', 'status', CourseStatus::class, CourseStatus::DE
 
 // to
 EnumBooleanFilter::make('status', CourseStatus::class)->name('Stato')->default(CourseStatus::DEFAULT)
+
 
 
 
